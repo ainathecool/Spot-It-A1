@@ -1,0 +1,19 @@
+<!-- res/drawable/rounded_rectangle_with_white_corner.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background gray rectangle -->
+    <item android:drawable="@drawable/grey_rectangle" />
+
+    <!-- White rectangle in the top-right corner -->
+    <item
+        android:right="30dp"
+        android:top="60dp"
+        android:gravity="right|top">
+        <shape>
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="10dp" />
+            <size
+                android:width="150dp"
+                android:height="180dp" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".registration4">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:src="@drawable/spotit"
+            android:contentDescription="logo"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginStart="105dp"
+            android:layout_marginEnd="105dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>
+
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registration"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="left"
+            android:textSize="20sp"/>
+
+
+        <!--Name-->
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:textSize="14sp"/>
+
+        <!-- Enter name Placeholder -->
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_rectangle"
+            android:paddingLeft="20dp"
+            android:text="Enter name"
+            android:textColor="#393838"
+            android:gravity="center|left"
+            android:textSize="18sp"/>
+
+        <!-- Row 2: Title Email -->
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:textSize="14sp"/>
+
+        <!-- Row 3: Enter Email Placeholder -->
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/rounded_rectangle"
+            android:paddingLeft="20dp"
+            android:text="Enter email"
+            android:textColor="#393838"
+            android:gravity="center|left"
+            android:textSize="18sp"/>
+
+        <!-- Row 4: Title contact -->
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contact Number"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:textSize="14sp"/>
+
+        <!-- Row 5: Enter contact  Placeholder -->
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:paddingLeft="20dp"
+            android:background="@drawable/rounded_rectangle"
+            android:text="Enter contact number"
+            android:textColor="#393838"
+            android:gravity="center|left"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Country"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:textSize="14sp"/>
+
+        <!-- Row 6: Select Country Spinner -->
+        <Spinner
+            android:id="@+id/spinnerCountry"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/drop_down_rectangle"
+            android:textColor="#393838"
+            android:gravity="center|left"
+            android:textSize="18sp"
+            android:entries="@array/countries"
+            android:prompt="@string/select_country" />
+
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="City"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="start"
+            android:textSize="14sp"/>
+
+        <!-- Row 7: Select City Spinner -->
+        <Spinner
+            android:id="@+id/spinnerCity"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/drop_down_rectangle"
+            android:textColor="#393838"
+            android:gravity="center|left"
+            android:textSize="18sp"
+            android:entries="@array/cities"
+            android:prompt="@string/select_city" />
+
+
+        <!-- Row 7: signup Button -->
+        <TextView
+            android:id="@+id/signin"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rounded_rectangle_orange"
+            android:text="Signup"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+        <!-- Row 8: Login Link -->
+        <TextView
+            android:id="@+id/login"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#787070"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+<!-- res/drawable/rounded_rectangle_with_dropdown.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background rectangle -->
+    <item android:drawable="@drawable/grey_rectangle" />
+
+    <!-- Close icon -->
+    <item
+        android:drawable="@drawable/baseline_close_24"
+        android:gravity="start|top"
+        android:left="30dp"
+        android:top="10dp"
+        android:right="30dp" />
+
+    <!-- Outline light icon -->
+    <item
+        android:drawable="@drawable/outline_light_mode_24"
+        android:gravity="center|top"
+        android:left="50dp"
+        android:right="50dp"
+        android:top="10dp" />
+
+    <!-- Time icon -->
+    <item
+        android:drawable="@drawable/baseline_access_time_24"
+        android:gravity="end|top"
+        android:left="50dp"
+        android:right="30dp"
+        android:top="10dp"/>
+</layer-list>

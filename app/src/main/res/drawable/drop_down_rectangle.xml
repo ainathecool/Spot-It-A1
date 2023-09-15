@@ -1,0 +1,12 @@
+<!-- res/drawable/rounded_rectangle_with_dropdown.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background rectangle -->
+    <item android:drawable="@drawable/rounded_rectangle" />
+
+    <item
+        android:gravity="end"
+        android:left="30dp"
+        android:right="10dp"
+        android:drawable="@drawable/ic_dropdown"/>
+
+</layer-list>

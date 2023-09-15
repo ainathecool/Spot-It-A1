@@ -1,0 +1,6 @@
+<!-- res/drawable/grey_circle.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <!-- Fill color (grey) -->
+    <solid android:color="#D5CFCF" /> <!-- Adjust the color as needed -->
+</shape>

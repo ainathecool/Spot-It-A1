@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".emailverification5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rectangle_back">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="50dp"
+            android:text="Email Verification"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold">
+
+        </TextView> </LinearLayout>
+
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter the code sent to your email."
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="left"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Resend code in 23s"
+            android:textStyle="bold"
+            android:textColor="#FF9800"
+            android:gravity="start"
+            android:textSize="16sp"/>
+
+        <!-- LinearLayout to contain five rounded squares -->
+        <LinearLayout
+            android:id="@+id/squareLayout"
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- First rounded square -->
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_square" />
+
+            <!-- Second rounded square -->
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_square" />
+
+            <!-- Third rounded square -->
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_square" />
+
+            <!-- Fourth rounded square -->
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_square" />
+
+            <!-- Fifth rounded square -->
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_square" />
+        </LinearLayout>
+
+        <!-- GridLayout for the keypad -->
+        <GridLayout
+            android:id="@+id/keypadGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="30dp"
+            android:columnCount="3"
+            android:rowCount="4">
+
+            <!-- Add circles with numbers as backgrounds -->
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="6"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="7"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="8"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="9"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <View
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/white_circle"
+                android:gravity="center" />
+            <!-- Circle for number 0 -->
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/grey_circle"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#FF323030"
+                android:textSize="30dp" />
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="45dp"
+                android:background="@drawable/baseline_backspace_24"
+                android:gravity="center" />
+
+        </GridLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

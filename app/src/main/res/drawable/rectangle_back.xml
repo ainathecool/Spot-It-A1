@@ -1,0 +1,18 @@
+<!-- res/drawable/rounded_rectangle_with_dropdown.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background rectangle -->
+    <item android:drawable="@drawable/rectangle" />
+
+    <!-- Line at the bottom -->
+    <item
+        android:top="60dp"
+        android:bottom="0dp"
+        android:gravity="fill_horizontal"
+        android:drawable="@drawable/line" /> <!-- You can create a line drawable for this purpose -->
+
+    <!-- Dropdown icon -->
+    <item
+        android:gravity="start"
+        android:left="5dp"
+        android:drawable="@drawable/baseline_arrow_back_24"/>
+</layer-list>
