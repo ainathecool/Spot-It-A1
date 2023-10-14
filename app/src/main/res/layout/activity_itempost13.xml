@@ -63,7 +63,7 @@
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="20dp"
-                android:src="@drawable/upload_image" />
+                android:src="@drawable/uploadimage" />
 
 
         </RelativeLayout>
@@ -80,7 +80,7 @@
                 android:id="@+id/rectangle"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:src="@drawable/upload_video"
+                android:src="@drawable/uploadvideo"
                 android:layout_marginLeft="20dp" />
 
         </RelativeLayout>
