@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="50dp"
             android:text="Email Verification"
             android:gravity="left"
@@ -36,7 +36,7 @@
 
         <TextView
             android:layout_marginStart="20dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Enter the code sent to your email."
@@ -47,7 +47,7 @@
 
         <TextView
             android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Resend code in 23s"
@@ -256,7 +256,7 @@
                 android:layout_height="80dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/grey_circle"
                 android:gravity="center"
@@ -270,7 +270,7 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginBottom="45dp"
+                android:layout_marginBottom="60dp"
                 android:background="@drawable/baseline_backspace_24"
                 android:gravity="center" />
 

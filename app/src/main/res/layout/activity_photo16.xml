@@ -21,7 +21,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="95dp"
+            android:layout_height="90dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/camera_bar">
         </View>
@@ -29,7 +29,7 @@
         <!-- Horizontal LinearLayout for "Photo" and "Video" -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="80dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal">
@@ -41,7 +41,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="70dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/orange_oval"
                 android:gravity="center"
@@ -55,7 +55,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="70dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="30dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Video"

@@ -1,9 +1,580 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".searchresults8">
+    tools:context=".searchresults8"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            />
+        <View
+            android:id="@+id/marginline"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#918F8F"
+            android:layout_below="@id/bar"
+            />
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:contentDescription="Back"
+            android:focusable="true"
+            android:src="@drawable/baseline_arrow_back_24"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search Results"
+            android:textSize="25sp"
+            android:paddingTop="13dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="50dp"
+            />
+        <TextView
+
+            android:id="@+id/someitem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="'Some item'"
+            android:layout_below="@+id/marginline"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="12dp"
+
+            />
+        <LinearLayout
+            android:id="@+id/firstLinear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/marginline"
+            android:layout_toRightOf="@id/someitem"
+            android:layout_marginLeft="150dp"
+            android:background="@drawable/box"
+            android:layout_marginTop="7dp"
+            >
+
+
+            <TextView
+
+                android:id="@+id/bestmatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/marginline"
+                android:layout_toRightOf="@id/someitem"
+                android:text="Best Match"
+                android:textStyle="bold"
+                android:padding="8dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_keyboard_arrow_down_24"
+                android:paddingTop="7dp"
+                android:paddingRight="5dp"
+                />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/firstRelative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstLinear"
+            android:layout_marginTop="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/topimage"
+                android:layout_width="180dp"
+                android:layout_height="130dp"
+                android:background="@drawable/featured_items"
+                android:layout_marginLeft="5dp"
+                />
+
+            <RelativeLayout
+                android:id="@+id/bottomImage"
+                android:layout_width="180dp"
+                android:layout_height="55dp"
+                android:background="@drawable/featured_item2"
+                android:layout_below="@+id/topimage"
+                android:layout_marginLeft="5dp">
+
+                <TextView
+                    android:id="@+id/itemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/locationImage"
+                    android:layout_below="@+id/itemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_remove_red_eye_24"
+                    android:paddingLeft="16dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName"
+                    android:layout_toRightOf="@+id/locationImage"
+                    android:text="Islamabad"
+                    android:textSize="15sp"
+                    android:paddingLeft="3dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$10/hr"
+                    android:layout_toRightOf="@+id/itemName"
+                    android:textSize="15sp"
+                    android:textColor="#ff9800"
+                    android:layout_marginLeft="20dp"
+                    android:paddingTop="5dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName"
+                    android:layout_toRightOf="@+id/location"
+                    android:text="7th Mar"
+                    android:textSize="15sp"
+                    android:paddingLeft="5dp"
+
+                    />
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/topimage1"
+                android:layout_width="180dp"
+                android:layout_height="130dp"
+                android:background="@drawable/featured_items"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/topimage"
+                />
+
+            <RelativeLayout
+                android:layout_width="180dp"
+                android:layout_height="55dp"
+                android:background="@drawable/featured_item2"
+                android:layout_toRightOf="@+id/bottomImage"
+                android:layout_below="@+id/topimage"
+                android:layout_marginLeft="15dp">
+
+                <TextView
+                    android:id="@+id/itemName1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/locationImage1"
+                    android:layout_below="@+id/itemName1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_remove_red_eye_24"
+                    android:paddingLeft="15dp"
+                    />
+
+
+
+                <TextView
+                    android:id="@+id/location1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName1"
+                    android:layout_toRightOf="@+id/locationImage1"
+                    android:text="Islamabad"
+                    android:textSize="15sp"
+                    android:paddingLeft="3dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/itemName1"
+                    android:paddingTop="5dp"
+                    android:text="$10/hr"
+                    android:textColor="#ff9800"
+                    android:textSize="15sp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName1"
+                    android:layout_toRightOf="@+id/location1"
+                    android:text="7th Mar"
+                    android:textSize="15sp"
+                    android:paddingLeft="5dp"
+
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/thirdRelative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/secondRelative"
+            android:layout_marginTop="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/topimage4"
+                android:layout_width="180dp"
+                android:layout_height="130dp"
+                android:background="@drawable/featured_items"
+                android:layout_marginLeft="5dp"
+                />
+
+            <RelativeLayout
+                android:id="@+id/bottomImage4"
+                android:layout_width="180dp"
+                android:layout_height="55dp"
+                android:background="@drawable/featured_item2"
+                android:layout_below="@+id/topimage4"
+                android:layout_marginLeft="5dp">
+
+                <TextView
+                    android:id="@+id/itemName4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/locationImage4"
+                    android:layout_below="@+id/itemName4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_remove_red_eye_24"
+                    android:paddingLeft="15dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/location4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName4"
+                    android:layout_toRightOf="@+id/locationImage4"
+                    android:text="Islamabad"
+                    android:textSize="15sp"
+                    android:paddingLeft="3dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$10/hr"
+                    android:textColor="#ff9800"
+                    android:layout_toRightOf="@+id/itemName4"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="15sp"
+                    android:paddingTop="5dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName4"
+                    android:layout_toRightOf="@+id/location4"
+                    android:text="7th Mar"
+                    android:textSize="15sp"
+                    android:paddingLeft="5dp"
+
+                    />
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/topimage5"
+                android:layout_width="180dp"
+                android:layout_height="130dp"
+                android:background="@drawable/featured_items"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/topimage4"
+                />
+
+            <RelativeLayout
+                android:layout_width="180dp"
+                android:layout_height="55dp"
+                android:background="@drawable/featured_item2"
+                android:layout_toRightOf="@+id/bottomImage4"
+                android:layout_below="@+id/topimage5"
+                android:layout_marginLeft="15dp">
+
+                <TextView
+                    android:id="@+id/itemName5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/locationImage5"
+                    android:layout_below="@+id/itemName5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_remove_red_eye_24"
+                    android:paddingLeft="15dp"
+                    />
+
+
+
+                <TextView
+                    android:id="@+id/location5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName5"
+                    android:layout_toRightOf="@+id/locationImage5"
+                    android:text="Islamabad"
+                    android:textSize="15sp"
+                    android:paddingLeft="3dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/itemName5"
+                    android:paddingTop="5dp"
+                    android:text="$10/hr"
+                    android:textColor="#ff9800"
+                    android:textSize="15sp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName5"
+                    android:layout_toRightOf="@+id/location5"
+                    android:text="7th Mar"
+                    android:textSize="15sp"
+                    android:paddingLeft="5dp"
+
+                    />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/secondRelative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/firstRelative"
+            android:layout_marginTop="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/topimage2"
+                android:layout_width="180dp"
+                android:layout_height="130dp"
+                android:background="@drawable/featured_items"
+                android:layout_marginLeft="5dp"
+                />
+
+            <RelativeLayout
+                android:id="@+id/bottomImage2"
+                android:layout_width="180dp"
+                android:layout_height="55dp"
+                android:background="@drawable/featured_item2"
+                android:layout_below="@+id/topimage2"
+                android:layout_marginLeft="5dp">
+
+                <TextView
+                    android:id="@+id/itemName2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/locationImage2"
+                    android:layout_below="@+id/itemName2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_remove_red_eye_24"
+                    android:paddingLeft="15dp"
+                    />
+
+
+                <TextView
+                    android:id="@+id/location2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName2"
+                    android:layout_toRightOf="@+id/locationImage2"
+                    android:text="Islamabad"
+                    android:textSize="15sp"
+                    android:paddingLeft="3dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$10/hr"
+                    android:textColor="#ff9800"
+                    android:layout_toRightOf="@+id/itemName2"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="15sp"
+                    android:paddingTop="5dp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName2"
+                    android:layout_toRightOf="@+id/location2"
+                    android:text="7th Mar"
+                    android:textSize="15sp"
+                    android:paddingLeft="5dp"
+
+                    />
+
+            </RelativeLayout>
+
+
+            <ImageView
+                android:id="@+id/topimage3"
+                android:layout_width="180dp"
+                android:layout_height="130dp"
+                android:background="@drawable/featured_items"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/topimage2"
+                />
+
+            <RelativeLayout
+                android:layout_width="180dp"
+                android:layout_height="55dp"
+                android:background="@drawable/featured_item2"
+                android:layout_toRightOf="@+id/bottomImage2"
+                android:layout_below="@+id/topimage3"
+                android:layout_marginLeft="15dp">
+
+                <TextView
+                    android:id="@+id/itemName3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item Name"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/locationImage3"
+                    android:layout_below="@+id/itemName3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_remove_red_eye_24"
+                    android:paddingLeft="15dp"
+                    />
+
+
+
+                <TextView
+                    android:id="@+id/location3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName3"
+                    android:layout_toRightOf="@+id/locationImage3"
+                    android:text="Islamabad"
+                    android:textSize="15sp"
+                    android:paddingLeft="3dp"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/itemName3"
+                    android:paddingTop="5dp"
+                    android:text="$10/hr"
+                    android:textColor="#ff9800"
+                    android:textSize="15sp"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/itemName3"
+                    android:layout_toRightOf="@+id/location3"
+                    android:text="7th Mar"
+                    android:textSize="15sp"
+                    android:paddingLeft="5dp"
+
+                    />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
