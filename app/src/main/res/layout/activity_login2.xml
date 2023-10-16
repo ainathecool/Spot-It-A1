@@ -45,15 +45,16 @@
             android:textSize="16sp"/>
 
         <!-- Row 3: Enter Email Placeholder -->
-        <TextView
+        <EditText
+            android:id="@+id/email"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:background="@drawable/rounded_rectangle"
             android:paddingLeft="20dp"
-            android:text="Enter email"
+            android:hint="Enter email"
             android:textColor="#393838"
             android:gravity="center|left"
             android:textSize="18sp"/>
@@ -71,15 +72,17 @@
             android:textSize="16sp"/>
 
         <!-- Row 5: Enter Password Placeholder -->
-        <TextView
+        <EditText
+            android:id="@+id/password"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:paddingLeft="20dp"
             android:background="@drawable/rounded_rectangle"
-            android:text="Enter password"
+            android:hint="Enter password"
+            android:inputType="numberPassword"
             android:textColor="#393838"
             android:gravity="center|left"
             android:textSize="18sp"/>
@@ -100,6 +103,7 @@
 
         <!-- Row 7: Login Button -->
         <TextView
+            android:id="@+id/login"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="20dp"

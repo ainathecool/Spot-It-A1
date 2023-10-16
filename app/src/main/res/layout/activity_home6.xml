@@ -602,31 +602,46 @@
     </ScrollView>
 
 
-
     <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottombar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:fabCradleMargin="20dp"
-        app:fabCradleRoundedCornerRadius="20dp"
-        app:fabCradleVerticalOffset="10dp"
-        app:itemIconTint="#ff9800"
-        >
+        android:layout_gravity="bottom">
 
-        <View
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/home_bar">
-        </View>
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
 
+            <ImageView
+                android:id="@+id/home"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/home__orange"/>
+            <ImageView
+                android:id="@+id/search"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/search"/>
+            <ImageView
+                android:id="@+id/add"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add"/>
+            <ImageView
+                android:id="@+id/chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/chat"/>
+            <ImageView
+                android:id="@+id/profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/profile"/>
 
+        </LinearLayout>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

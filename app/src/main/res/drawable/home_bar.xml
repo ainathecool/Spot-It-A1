@@ -11,6 +11,7 @@
 
     <!-- Close icon -->
     <item
+        android:id="@+id/home"
         android:drawable="@drawable/home__orange"
         android:gravity="top"
         android:left="20dp"
@@ -23,6 +24,7 @@
 
     <!-- Outline light icon -->
     <item
+        android:id="@+id/search"
         android:drawable="@drawable/search"
         android:gravity="top"
         android:bottom="30dp"
@@ -33,6 +35,7 @@
         android:right="80dp"
         />
     <item
+        android:id="@+id/add"
         android:drawable="@drawable/add"
         android:gravity="top"
         android:bottom="30dp"
@@ -45,6 +48,7 @@
 
     <!-- Time icon -->
     <item
+        android:id="@+id/chat"
         android:drawable="@drawable/chat"
         android:gravity="top"
         android:bottom="30dp"
@@ -57,6 +61,7 @@
 
     <!-- Cross icon -->
     <item
+        android:id="@+id/profile"
         android:drawable="@drawable/profile"
         android:gravity="top"
         android:bottom="30dp"

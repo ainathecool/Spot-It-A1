@@ -14,6 +14,7 @@ public class spot1 extends AppCompatActivity {
         setContentView(R.layout.activity_spot1);
 
 
+        //splash screen shifting to second screen after 5 seconds
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -22,7 +23,7 @@ public class spot1 extends AppCompatActivity {
                 startActivity(intent);
                 finish(); // Close the main activity so the user can't go back to it
             }
-        }, 3000); // 5000 milliseconds (5 seconds)
+        }, 5000); // 5000 milliseconds (5 seconds)
 
     }
 }

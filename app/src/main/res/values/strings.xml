@@ -10,17 +10,17 @@
     <!-- Countries -->
     <string-array name="countries">
         <item>Select Country</item>
-        <item>Country 1</item>
-        <item>Country 2</item>
-        <item>Country 3</item>
+        <item>Pakistan</item>
+        <item>India</item>
+        <item>USA</item>
     </string-array>
 
     <!-- Cities -->
     <string-array name="cities">
         <item>Select City</item>
-        <item>City 1</item>
-        <item>City 2</item>
-        <item>City 3</item>
+        <item>Islamabad</item>
+        <item>Mumbai</item>
+        <item>Texas</item>
 
     </string-array>
 
