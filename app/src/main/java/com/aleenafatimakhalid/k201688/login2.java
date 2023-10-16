@@ -51,6 +51,9 @@ public class login2 extends AppCompatActivity {
         });
 
        TextView login = findViewById(R.id.login);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+
         mAuth = FirebaseAuth.getInstance();
 
         login.setOnClickListener(new View.OnClickListener() {
