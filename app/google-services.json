@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "765864208951",
+    "project_id": "spot-it-smd",
+    "storage_bucket": "spot-it-smd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765864208951:android:c33e0e8b24be9eb96c6db2",
+        "android_client_info": {
+          "package_name": "com.aleenafatimakhalid.k201688"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM4PmOAQwbsc3PRNqXU_j_gx8Yjj-2ibA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
