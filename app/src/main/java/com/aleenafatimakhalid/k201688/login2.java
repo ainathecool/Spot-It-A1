@@ -51,15 +51,13 @@ public class login2 extends AppCompatActivity {
         });
 
        TextView login = findViewById(R.id.login);
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
-
+       email = findViewById(R.id.email);
+       password = findViewById(R.id.password);
         mAuth = FirebaseAuth.getInstance();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 mAuth.signInWithEmailAndPassword(
                                 email.getText().toString(),
                                 password.getText().toString()
@@ -67,20 +65,24 @@ public class login2 extends AppCompatActivity {
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(login2.this, "Signin successfull", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(login2.this, home6.class);
-                                startActivity(intent);
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(login2.this, "Signin successful", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(login2.this, home6.class);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(login2.this, "Signin failed", Toast.LENGTH_LONG).show();
+                                }
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(login2.this, "Signin failed", Toast.LENGTH_LONG).show();
+                                Toast.makeText(login2.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
             }
-
         });
+
 
         //if theres a user logged in
         if(mAuth.getUid() != null)

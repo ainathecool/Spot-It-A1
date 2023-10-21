@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/box"
-        android:text="Enter item name"
+        android:hint="Enter Item Name"
         android:layout_below="@id/name1"
         android:layout_marginLeft="17dp"
         android:layout_marginRight="15dp"
@@ -115,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/entername"
-        android:text="Hourly Rate"
+        android:hint="Hourly Rate"
         android:textSize="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
@@ -126,7 +126,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/box"
-        android:text="Enter hourly rate"
+        android:hint="Enter hourly rate"
         android:layout_below="@id/hourlyrate"
         android:layout_marginLeft="17dp"
         android:layout_marginRight="15dp"
@@ -148,7 +148,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/box"
-        android:text="Enter hourly rate"
+        android:hint="Enter Item Description"
         android:layout_below="@id/description"
         android:layout_marginLeft="17dp"
         android:layout_marginRight="15dp"
@@ -166,43 +166,23 @@
         android:layout_marginTop="10dp"
         />
 
-    <LinearLayout
-        android:id="@+id/firstLinear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/city"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/box"
-        android:layout_marginTop="7dp"
-        >
 
-
-        <TextView
+        <EditText
 
             android:id="@+id/bestmatch"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/box"
+            android:hint="Enter City"
             android:layout_below="@id/city"
-            android:layout_toRightOf="@id/someitem"
-            android:text="Enter City"
-            android:textSize="22sp"
-            android:padding="8dp"
-            android:textColor="#000000"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_keyboard_arrow_down_24"
-            android:paddingTop="12dp"
-            android:paddingRight="5dp"
-            android:layout_marginLeft="255dp"
-            />
-    </LinearLayout>
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="15dp"
+            android:padding="20dp"
+        />
 
     <TextView
         android:layout_marginStart="20dp"
+        android:id="@+id/post_item_btn"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="630dp"
         android:layout_width="match_parent"
@@ -212,6 +192,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:gravity="center"
+        android:clickable="true"
         android:textSize="20sp"/>
 
 
