@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class spot1 extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class spot1 extends AppCompatActivity {
         setContentView(R.layout.activity_spot1);
 
         FirebaseApp.initializeApp(this);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
 
         //splash screen shifting to second screen after 5 seconds
@@ -23,7 +25,7 @@ public class spot1 extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent;
-                intent = new Intent(spot1.this, login2.class);
+                intent = new Intent(spot1.this, chat.class);
                 startActivity(intent);
                 finish(); // Close the main activity so the user can't go back to it
             }
