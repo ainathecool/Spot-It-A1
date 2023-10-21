@@ -1,10 +1,12 @@
 package com.aleenafatimakhalid.k201688;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.FirebaseApp;
 
 public class spot1 extends AppCompatActivity {
 
@@ -12,6 +14,8 @@ public class spot1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spot1);
+
+        FirebaseApp.initializeApp(this);
 
 
         //splash screen shifting to second screen after 5 seconds
