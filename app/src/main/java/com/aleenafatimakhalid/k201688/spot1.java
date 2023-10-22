@@ -3,11 +3,13 @@ package com.aleenafatimakhalid.k201688;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
+import com.onesignal.OneSignal;
 
 
 public class spot1 extends AppCompatActivity {
@@ -19,6 +21,9 @@ public class spot1 extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        String id = OneSignal.getUser().getPushSubscription().getId();
+        Toast.makeText(this, id, Toast.LENGTH_LONG).show();
 
 
 
