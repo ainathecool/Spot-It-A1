@@ -36,6 +36,8 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         holder.messageTextView.setText(chatMessage.getMessage());
         holder.timestampTextView.setText(String.valueOf(chatMessage.getTimestamp()));
         Log.d("FirebaseData", "messageDisplayed: " + holder.messageTextView );
+
+
     }
 
     @Override

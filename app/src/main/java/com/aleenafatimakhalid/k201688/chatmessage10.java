@@ -1,8 +1,17 @@
 package com.aleenafatimakhalid.k201688;
 
+import android.content.Context;
+import android.content.Intent;
+import android.media.projection.MediaProjection;
+import android.media.projection.MediaProjectionManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,15 +34,34 @@ import java.util.Date;
 import java.util.List;
 
 public class chatmessage10 extends AppCompatActivity {
+    private static final int REQUEST_SCREEN_CAPTURE = 1;
+
     private RecyclerView recyclerView;
     private ChatMessageAdapter adapter;
     private List<ChatMessageItem> chatMessages;
     private DatabaseReference messagesDatabase;
 
+    private MediaProjectionManager mediaProjectionManager;
+    private MediaProjection mediaProjection;
+    private int screenCaptureWidth;
+    private int screenCaptureHeight;
+    private int screenDensity;
+
+    ImageView screenshotButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatmessage10);
+
+        mediaProjectionManager = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+
+        // Initialize screen capture dimensions
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        screenCaptureWidth = metrics.widthPixels;
+        screenCaptureHeight = metrics.heightPixels;
+        screenDensity = metrics.densityDpi;
 
         recyclerView = findViewById(R.id.recyclerViewChat);
         chatMessages = new ArrayList<>();
@@ -41,9 +69,41 @@ public class chatmessage10 extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        screenshotButton = findViewById(R.id.screenshotButton);
+
+        screenshotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the foreground service
+                Intent serviceIntent = new Intent(chatmessage10.this, MediaProjectionService.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(serviceIntent);
+                    Log.d("firebase", "foreground service started");
+                } else {
+                    startService(serviceIntent);
+                }
+
+
+                // Add a delay before initializing the MediaProjection
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Initialize the MediaProjection here
+                        if (mediaProjection == null) {
+                            // Request screen capture permission from the user
+                            startActivityForResult(mediaProjectionManager.createScreenCaptureIntent(), REQUEST_SCREEN_CAPTURE);
+                        } else {
+                            // Start the MediaProjectionService with the obtained data
+                            startMediaProjectionService(REQUEST_SCREEN_CAPTURE, null);
+                        }
+                    }
+                }, 1000); // Adjust the delay as needed
+            }
+        });
+
+
         messagesDatabase = FirebaseDatabase.getInstance().getReference("ChatMessages");
-
-
 
         messagesDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -66,8 +126,7 @@ public class chatmessage10 extends AppCompatActivity {
                             // Handle the case where messageType is null
                             // You can choose to ignore this message or handle it differently
                         }
-
-                      }
+                    }
 
                     sortChatMessagesByTimestamp();
                     adapter.notifyDataSetChanged();
@@ -129,4 +188,36 @@ public class chatmessage10 extends AppCompatActivity {
             }
         });
     }
+
+    private void startMediaProjectionService(int resultCode, Intent data) {
+        if (mediaProjection != null) {
+            Intent serviceIntent = new Intent(this, MediaProjectionService.class);
+            serviceIntent.putExtra("resultCode", resultCode);  // Set the appropriate resultCode
+            serviceIntent.putExtra("data", data);      // Set the MediaProjection data
+            Log.d("firebase", "im in startservice");
+            startService(serviceIntent);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_SCREEN_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+                // Define a handler with a delay
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, data);
+                        // Start the MediaProjectionService with the obtained data
+                        startMediaProjectionService(resultCode, data);
+                    }
+                }, 1000); // Adjust the delay (in milliseconds) as needed
+            } else {
+                Toast.makeText(this, "Screen capture permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }
