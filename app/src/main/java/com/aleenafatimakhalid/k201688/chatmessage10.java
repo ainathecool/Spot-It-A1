@@ -2,8 +2,10 @@ package com.aleenafatimakhalid.k201688;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,9 +16,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.Manifest;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +54,9 @@ public class chatmessage10 extends AppCompatActivity {
     private int screenDensity;
 
     ImageView screenshotButton;
+    ImageView phoneCallButton;
+    private static final int CALL_PERMISSION_REQUEST_CODE = 1 ;
+    private Intent callIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +77,30 @@ public class chatmessage10 extends AppCompatActivity {
         adapter = new ChatMessageAdapter(this, chatMessages);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        phoneCallButton = findViewById(R.id.phoneCall);
+        phoneCallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Define the phone number you want to call
+                String phoneNumber = "tel:+923349012023";
+
+                // Create an intent to initiate the phone call
+                callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse(phoneNumber));
+
+                // Check if the CALL_PHONE permission is granted
+                if (ContextCompat.checkSelfPermission(chatmessage10.this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+                    // Start the phone call
+                    startActivity(callIntent);
+                } else {
+                    // Request the CALL_PHONE permission
+                    ActivityCompat.requestPermissions(chatmessage10.this, new String[]{Manifest.permission.CALL_PHONE}, CALL_PERMISSION_REQUEST_CODE);
+                }
+            }
+        });
+;
+
 
         screenshotButton = findViewById(R.id.screenshotButton);
 
@@ -196,6 +229,25 @@ public class chatmessage10 extends AppCompatActivity {
             serviceIntent.putExtra("data", data);      // Set the MediaProjection data
             Log.d("firebase", "im in startservice");
             startService(serviceIntent);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CALL_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, initiate the phone call using the stored callIntent
+                if (callIntent != null) {
+                    startActivity(callIntent);
+                } else {
+                    // Handle the case where callIntent is null
+                    Toast.makeText(chatmessage10.this, "Call intent is null", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Permission denied, show a message or handle it accordingly
+                Toast.makeText(chatmessage10.this, "Phone call permission denied", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
