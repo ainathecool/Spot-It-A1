@@ -10,6 +10,26 @@ public class ChatMessageItem {
     private String timestamp;
     private int messageType;
 
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+    }
+
+    private String mediaUrl;
+
+    public String getImageURl() {
+        return imageURl;
+    }
+
+    public void setImageURl(String imageURl) {
+        this.imageURl = imageURl;
+    }
+
+    private String imageURl;
+
     public String getMessageId() {
         return messageId;
     }
