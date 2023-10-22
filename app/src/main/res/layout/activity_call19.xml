@@ -19,6 +19,7 @@
             android:background="@drawable/grey_rectangle">
 
             <TextView
+                android:id="@+id/callerName"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginStart="0dp"
@@ -34,6 +35,7 @@
                 />
 
             <TextView
+                android:id="@+id/callTime"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="4"

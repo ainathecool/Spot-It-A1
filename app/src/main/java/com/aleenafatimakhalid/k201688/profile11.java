@@ -13,8 +13,12 @@ import com.google.firebase.auth.FirebaseAuth;
 public class profile11 extends AppCompatActivity {
 
     ImageView logout;
+    int DP_REQUEST_CODE;
 
     FirebaseAuth mAuth;
+
+    de.hdodenhof.circleimageview.CircleImageView dp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +26,19 @@ public class profile11 extends AppCompatActivity {
         setContentView(R.layout.activity_profile11);
 
         logout = findViewById(R.id.logout);
+        dp = findViewById(R.id.circularImageView1);
         mAuth = FirebaseAuth.getInstance();
 
+        //dp update
+        dp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, DP_REQUEST_CODE);
+            }
+        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
