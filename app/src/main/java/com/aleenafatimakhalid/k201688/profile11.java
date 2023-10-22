@@ -1,14 +1,23 @@
 package com.aleenafatimakhalid.k201688;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class profile11 extends AppCompatActivity {
 
@@ -18,6 +27,9 @@ public class profile11 extends AppCompatActivity {
     FirebaseAuth mAuth;
 
     de.hdodenhof.circleimageview.CircleImageView dp;
+    String dpurl;
+
+    ImageView editProfile;
 
 
     @Override
@@ -28,6 +40,16 @@ public class profile11 extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         dp = findViewById(R.id.circularImageView1);
         mAuth = FirebaseAuth.getInstance();
+
+
+        editProfile = findViewById(R.id.editProfile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Intent intent = new Intent(profile11.this, editprofile14.class);
+                    startActivity(intent);
+            }
+        });
 
         //dp update
         dp.setOnClickListener(new View.OnClickListener() {
@@ -55,5 +77,39 @@ public class profile11 extends AppCompatActivity {
             }
         });
 
+
     }
-}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == DP_REQUEST_CODE && resultCode == RESULT_OK) {
+            Uri image = data.getData();
+            dp.setImageURI(image);
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference reference = storage.getReference("abc").child(System.currentTimeMillis() + "dp.png");
+
+            reference.putFile(image)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
+                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Toast.makeText(profile11.this, uri.toString(), Toast.LENGTH_LONG).show();
+                                    dpurl = uri.toString();
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(profile11.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+        }
+    }
+    }

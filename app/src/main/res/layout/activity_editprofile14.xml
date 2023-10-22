@@ -57,7 +57,7 @@
         <!--Name-->
         <TextView
             android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name"
@@ -67,15 +67,16 @@
             android:textSize="14sp"/>
 
         <!-- Enter name Placeholder -->
-        <TextView
+        <EditText
+            android:id="@+id/name"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:background="@drawable/rounded_rectangle"
             android:paddingLeft="20dp"
-            android:text="Daud"
+            android:hint="Enter name"
             android:textColor="#393838"
             android:gravity="center|left"
             android:textSize="18sp"/>
@@ -93,18 +94,21 @@
             android:textSize="14sp"/>
 
         <!-- Row 3: Enter Email Placeholder -->
-        <TextView
+        <EditText
+            android:id="@+id/email"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:background="@drawable/rounded_rectangle"
             android:paddingLeft="20dp"
-            android:text="daud@gmail.com"
+            android:hint="Enter email"
             android:textColor="#393838"
             android:gravity="center|left"
             android:textSize="18sp"/>
+        <!-- Row 2: Title Email -->
+
 
         <!-- Row 4: Title contact -->
         <TextView
@@ -119,18 +123,20 @@
             android:textSize="14sp"/>
 
         <!-- Row 5: Enter contact  Placeholder -->
-        <TextView
+        <EditText
+            android:id="@+id/number"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="48dp"
             android:paddingLeft="20dp"
             android:background="@drawable/rounded_rectangle"
-            android:text="0123 4567890"
+            android:hint="Enter contact number"
+            android:inputType="phone"
             android:textColor="#393838"
             android:gravity="center|left"
-            android:textSize="18sp"/>
+            android:textSize="18dp"/>
 
         <TextView
             android:layout_marginStart="20dp"
@@ -183,6 +189,8 @@
             android:textSize="18sp"
             android:entries="@array/cities"
             android:prompt="@string/select_city" />
+
+
 
     </LinearLayout>
 
