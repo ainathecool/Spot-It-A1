@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 public class spot1 extends AppCompatActivity {
 
     @Override
@@ -18,6 +19,7 @@ public class spot1 extends AppCompatActivity {
 
         FirebaseApp.initializeApp(this);
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
 
 
         //splash screen shifting to second screen after 5 seconds
