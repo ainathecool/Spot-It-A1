@@ -1,7 +1,12 @@
 package com.aleenafatimakhalid.k201688;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
-public class ItemModel {
+
+public class ItemModel implements Parcelable {
     private String name;
     private String hourlyRate;
     private String description;
@@ -21,6 +26,41 @@ public class ItemModel {
         this.userId = userId;
     }
 
+    protected ItemModel(Parcel in) {
+        name = in.readString();
+        hourlyRate = in.readString();
+        description = in.readString();
+        match = in.readString();
+        imageUrls = in.createStringArrayList();
+        userId = in.readString();
+    }
+
+    public static final Creator<ItemModel> CREATOR = new Creator<ItemModel>() {
+        @Override
+        public ItemModel createFromParcel(Parcel in) {
+            return new ItemModel(in);
+        }
+
+        @Override
+        public ItemModel[] newArray(int size) {
+            return new ItemModel[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(hourlyRate);
+        parcel.writeString(description);
+        parcel.writeString(match);
+        parcel.writeStringList(imageUrls);
+        parcel.writeString(userId);
+    }
     // Getters and setters for 'name'
     public String getName() {
         return name;
@@ -59,7 +99,7 @@ public class ItemModel {
 
     public List<String> getImageUrls() {return imageUrls;}
 
-    public void setImageUrls(List<String> ImageUrls) {this.imageUrls = imageUrls;}
+    public void setImageUrls(List<String> imageUrls) {this.imageUrls = imageUrls;}
     public String getUserId() {
         return userId;
     }
