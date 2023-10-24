@@ -129,7 +129,7 @@ public class itempost13 extends AppCompatActivity {
         String match = bestMatch.getText().toString().trim();
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String userId = mAuth.getUid();  // Retrieve userId
+        String userId = mAuth.getUid();
 
         if (name.isEmpty() || hourlyRate.isEmpty() || description.isEmpty() || match.isEmpty() || imageUrls.isEmpty() || userId == null) {
             Toast.makeText(itempost13.this, "Please fill all fields, select at least one image, and ensure you're logged in", Toast.LENGTH_SHORT).show();
