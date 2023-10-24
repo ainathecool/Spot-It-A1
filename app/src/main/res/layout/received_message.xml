@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+        <ImageView
+            android:contentDescription="avatar"
+            android:id="@+id/senderAvatarImage"
+            android:src="@drawable/baseline_person_24"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"/>
+
+        <TextView
+            android:id="@+id/receivedMessage"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_height="50dp"
+            android:text="This is a sample message"
+            android:paddingTop="10dp"
+            android:background="@drawable/rounded_rectangle"
+            android:layout_weight="0.5"/>
+
+        <TextView
+            android:id="@+id/receivedMessageTimestamp"
+            android:layout_width="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_height="50dp"
+            android:text="18:58"
+            android:gravity="end"
+            android:layout_marginEnd="30dp"
+            android:textColor="#838282"
+            android:layout_weight="0.1"/>
+
+</LinearLayout>

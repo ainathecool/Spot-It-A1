@@ -63,6 +63,7 @@
         android:layout_height="200dp"
         android:layout_below="@id/toolbar"
         android:background="#D8D5D5"/>
+
     <TextView
         android:id="@+id/twelve"
         android:layout_width="wrap_content"
