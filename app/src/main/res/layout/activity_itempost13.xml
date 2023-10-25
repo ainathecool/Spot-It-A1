@@ -77,7 +77,7 @@
             android:layout_toRightOf="@id/relative2">
 
             <ImageView
-                android:id="@+id/rectangle"
+                android:id="@+id/video"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:src="@drawable/uploadvideo"

@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class itempost13 extends AppCompatActivity {
-    ImageView imageView;
+    ImageView imageView, video, backButton;
     EditText enterName, enterHourlyRate, enterDescription, bestMatch;
     TextView postItemBtn;
     List<String> imageUrls = new ArrayList<>();
@@ -53,12 +53,31 @@ public class itempost13 extends AppCompatActivity {
         setContentView(R.layout.activity_itempost13);
 
         imageView = findViewById(R.id.image);
+        video = findViewById(R.id.video);
+        backButton = findViewById(R.id.backButton);
         enterName = findViewById(R.id.entername);
         enterHourlyRate = findViewById(R.id.enterhourly);
         enterDescription = findViewById(R.id.enterdescription);
         bestMatch = findViewById(R.id.bestmatch);
         postItemBtn = findViewById(R.id.post_item_btn);
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(itempost13.this, home6.class);
+                startActivity(intent);
+            }
+        });
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("video/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                startActivityForResult(intent, IMAGE_REQUEST_CODE);
+            }
+        });
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
