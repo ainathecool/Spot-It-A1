@@ -32,7 +32,7 @@ public class spot1 extends AppCompatActivity {
             @Override
             public void run() {
                 Intent intent;
-                intent = new Intent(spot1.this, chat.class);
+                intent = new Intent(spot1.this, registration4.class);
                 startActivity(intent);
                 finish(); // Close the main activity so the user can't go back to it
             }

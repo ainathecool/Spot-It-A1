@@ -1,7 +1,10 @@
 package com.aleenafatimakhalid.k201688;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,7 +22,7 @@ import java.util.List;
 public class chat extends AppCompatActivity {
     private List<ChatItem> chatItems;
     private ChatAdapter adapter;
-
+    ImageView home, search, add, profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,42 @@ public class chat extends AppCompatActivity {
                 Log.e("ChatActivity", "Error fetching data from Firebase: " + error.getMessage());
             }
 
+        });
+
+        home = findViewById(R.id.home);
+        search = findViewById(R.id.search);
+        add = findViewById(R.id.add);
+        profile = findViewById(R.id.profile);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(chat.this, search7.class);
+                startActivity(intent);
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(chat.this, itempost13.class);
+                startActivity(intent);
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(chat.this, home6.class);
+                startActivity(intent);
+            }
+        });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(chat.this, profile11.class);
+                startActivity(intent);
+            }
         });
 
     }

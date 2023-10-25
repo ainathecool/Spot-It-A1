@@ -68,6 +68,47 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         } else {
             // If it's not a sent message, remove any existing click listener (if any)
         }
+
+//        public void onBindViewHolder(ViewHolder holder, int position) {
+//            ChatMessageItem chatMessage = chatMessages.get(position);
+//            holder.messageTextView.setText(chatMessage.getMessage());
+//            holder.timestampTextView.setText(formatTimestamp(chatMessage.getTimestamp()));
+//
+//            if (chatMessage.getMessageType() == ChatMessageItem.TYPE_SENT) {
+//                long currentTime = System.currentTimeMillis();
+//                long messageTime = chatMessage.getTimestamp(); // Use the actual long timestamp you've saved
+//                long timeDifference = currentTime - messageTime;
+//
+//                if (timeDifference <= 300000) {
+//                    holder.deleteButton.setVisibility(View.VISIBLE);
+//                    holder.editButton.setVisibility(View.VISIBLE);
+//                } else {
+//                    holder.deleteButton.setVisibility(View.GONE);
+//                    holder.editButton.setVisibility(View.GONE);
+//                }
+//
+//                // Set click listeners for the buttons here
+//                holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        // Call a method to delete the message when the delete button is clicked
+//                        deleteMessage(chatMessage);
+//                    }
+//                });
+//
+//                holder.editButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        // Call a method to allow the user to edit the message
+//                        editMessage(chatMessage);
+//                    }
+//                });
+//            } else {
+//                holder.deleteButton.setVisibility(View.GONE);
+//                holder.editButton.setVisibility(View.GONE);
+//            }
+//        }
+
     }
 
     private void deleteMessage(final ChatMessageItem chatMessage) {

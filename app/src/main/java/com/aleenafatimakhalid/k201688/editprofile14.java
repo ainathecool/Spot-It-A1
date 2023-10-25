@@ -1,5 +1,6 @@
 package com.aleenafatimakhalid.k201688;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +37,13 @@ public class editprofile14 extends AppCompatActivity {
         backToProfile = findViewById(R.id.backToProfile);
         saveChanges = findViewById(R.id.saveChanges);
 
+        backToProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(editprofile14.this, profile11.class);
+                startActivity(intent);
+            }
+        });
         saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

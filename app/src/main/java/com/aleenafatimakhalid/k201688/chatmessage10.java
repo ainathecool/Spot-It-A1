@@ -74,7 +74,7 @@ public class chatmessage10 extends AppCompatActivity {
     ImageView camera;
 
     ImageView gallery;
-    ImageView voiceNote;
+    ImageView voiceNote, backToChat, videoCall;
     private static final int CALL_PERMISSION_REQUEST_CODE = 1 ;
     private Intent callIntent;
 
@@ -102,6 +102,21 @@ public class chatmessage10 extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        videoCall = findViewById(R.id.videoCall);
+        videoCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(chatmessage10.this, "No video call available!", Toast.LENGTH_LONG).show();
+            }
+        });
+        backToChat = findViewById(R.id.backToChat);
+        backToChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(chatmessage10.this, chat.class);
+                startActivity(intent);
+            }
+        });
         voiceNote = findViewById(R.id.voiceNote);
         voiceNote.setOnClickListener(new View.OnClickListener() {
             @Override

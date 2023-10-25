@@ -30,6 +30,7 @@ public class profile11 extends AppCompatActivity {
     String dpurl;
 
     ImageView editProfile;
+    ImageView home, search, chat, add;
 
 
     @Override
@@ -41,6 +42,41 @@ public class profile11 extends AppCompatActivity {
         dp = findViewById(R.id.circularImageView1);
         mAuth = FirebaseAuth.getInstance();
 
+        home = findViewById(R.id.home);
+        search = findViewById(R.id.search);
+        add = findViewById(R.id.add);
+        chat = findViewById(R.id.chat);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(profile11.this, search7.class);
+                startActivity(intent);
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(profile11.this, itempost13.class);
+                startActivity(intent);
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(profile11.this, home6.class);
+                startActivity(intent);
+            }
+        });
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(profile11.this, chat.class);
+                startActivity(intent);
+            }
+        });
 
         editProfile = findViewById(R.id.editProfile);
         editProfile.setOnClickListener(new View.OnClickListener() {
