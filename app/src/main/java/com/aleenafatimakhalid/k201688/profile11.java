@@ -1,23 +1,28 @@
 package com.aleenafatimakhalid.k201688;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class profile11 extends AppCompatActivity {
 
@@ -31,7 +36,6 @@ public class profile11 extends AppCompatActivity {
 
     ImageView editProfile;
     ImageView home, search, chat, add;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +86,8 @@ public class profile11 extends AppCompatActivity {
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent intent = new Intent(profile11.this, editprofile14.class);
-                    startActivity(intent);
+                Intent intent = new Intent(profile11.this, editprofile14.class);
+                startActivity(intent);
             }
         });
 
@@ -100,20 +104,16 @@ public class profile11 extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mAuth.getUid() != null)
-                {
+                if (mAuth.getUid() != null) {
                     mAuth.signOut();
                     Toast.makeText(profile11.this, "Logout Successful", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(profile11.this, login2.class);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     Toast.makeText(profile11.this, "User not logged in", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
-
     }
 
     @Override
@@ -122,30 +122,44 @@ public class profile11 extends AppCompatActivity {
         if (requestCode == DP_REQUEST_CODE && resultCode == RESULT_OK) {
             Uri image = data.getData();
             dp.setImageURI(image);
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference reference = storage.getReference("abc").child(System.currentTimeMillis() + "dp.png");
-
-            reference.putFile(image)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
-                            task.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Toast.makeText(profile11.this, uri.toString(), Toast.LENGTH_LONG).show();
-                                    dpurl = uri.toString();
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(profile11.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
-
-                        }
-                    });
+            uploadDpToServer(image);
         }
     }
+
+    private String getUserUIDFromPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
+        return sharedPreferences.getString("UID", "defaultUID");  // Return the saved UID or a default one
     }
+    private void uploadDpToServer(Uri imageUri) {
+        // Replace the Firebase storage upload with a call to your PHP script
+        String url = "http://192.168.18.27/k201688_i190563/upload_dp.php";
+
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Handle the response from the server
+                Log.d("UploadDp", "Response: " + response);
+                Toast.makeText(profile11.this, "Profile picture updated successfully", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Handle the error
+                Toast.makeText(profile11.this, "Error updating profile picture: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // Pass the necessary parameters to your PHP script, e.g., image, user_id, etc.
+                Map<String, String> params = new HashMap<>();
+                params.put("image", imageUri.toString());
+                params.put("user_id", getUserUIDFromPreferences());
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(profile11.this);
+        queue.add(request);
+    }
+}

@@ -11,26 +11,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class SignupActivityTest {
+public class EditProfileActivityTest {
 
-    private ActivityScenario<registration4> activityScenario;
+    private ActivityScenario<editprofile14> activityScenario;
 
     @Before
     public void launchActivity() {
-        // Launch the registration4 activity before each test
-        activityScenario = ActivityScenario.launch(registration4.class);
+        // Launch the editprofile14 activity before each test
+        activityScenario = ActivityScenario.launch(editprofile14.class);
     }
 
     @Test
-    public void testSignupFields() {
+    public void testSaveProfile() {
         // Type text in the name field
         Espresso.onView(ViewMatchers.withId(R.id.name)).perform(ViewActions.typeText("John Doe"));
 
         // Type text in the email field
         Espresso.onView(ViewMatchers.withId(R.id.email)).perform(ViewActions.typeText("johndoe@example.com"));
-
-        // Type text in the password field
-        Espresso.onView(ViewMatchers.withId(R.id.password)).perform(ViewActions.typeText("password123"));
 
         // Type text in the number field
         Espresso.onView(ViewMatchers.withId(R.id.number)).perform(ViewActions.typeText("1234567890"));
@@ -38,8 +35,8 @@ public class SignupActivityTest {
         // Close the soft keyboard (if it is open)
         Espresso.closeSoftKeyboard();
 
-        // Click the signup button
-        Espresso.onView(ViewMatchers.withId(R.id.signupReg)).perform(ViewActions.click());
+        // Click the save changes button
+        Espresso.onView(ViewMatchers.withId(R.id.saveChanges)).perform(ViewActions.click());
 
     }
 }

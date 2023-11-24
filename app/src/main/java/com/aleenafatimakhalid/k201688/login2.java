@@ -1,8 +1,5 @@
 package com.aleenafatimakhalid.k201688;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,17 +7,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class login2 extends AppCompatActivity {
 
     EditText email, password;
 
-    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,49 +56,56 @@ public class login2 extends AppCompatActivity {
             }
         });
 
-       TextView login = findViewById(R.id.login);
-       email = findViewById(R.id.email);
-       password = findViewById(R.id.password);
-
-        mAuth = FirebaseAuth.getInstance();
+        TextView login = findViewById(R.id.login);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.signInWithEmailAndPassword(
-                                email.getText().toString(),
-                                password.getText().toString()
-                        )
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(login2.this, "Signin successful", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(login2.this, home6.class);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(login2.this, "Signin failed", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(login2.this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        });
+                loginUserRemotely(
+                        email.getText().toString(),
+                        password.getText().toString()
+                );
             }
         });
+    }
 
+    private void loginUserRemotely(final String email, final String password) {
+        String url = "http://192.168.18.27/k201688_i190563/login.php";
 
-        //if theres a user logged in
-        if(mAuth.getUid() != null)
-        {
-            Intent intent = new Intent(login2.this, home6.class);
-            startActivity(intent);
-            finish();
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject res = new JSONObject(response);
+                    if (res.getInt("Status") == 1) {
+                        Toast.makeText(login2.this, "Login successful", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(login2.this, home6.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(login2.this, "Login failed", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Handle error
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("password", password);
+                return params;
+            }
+        };
 
-        }
-
+        RequestQueue queue = Volley.newRequestQueue(login2.this);
+        queue.add(request);
     }
 }

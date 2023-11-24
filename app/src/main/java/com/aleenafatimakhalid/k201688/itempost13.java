@@ -11,24 +11,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class itempost13 extends AppCompatActivity {
     ImageView imageView, video, backButton;
@@ -39,12 +39,12 @@ public class itempost13 extends AppCompatActivity {
 
     private String getUserEmailFromPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-        return sharedPreferences.getString("Email", "default@email.com");  // Return the saved email or a default one
+        return sharedPreferences.getString("Email", "default@email.com");
     }
 
     private String getUserUIDFromPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
-        return sharedPreferences.getString("UID", "defaultUID");  // Return the saved UID or a default one
+        return sharedPreferences.getString("UID", "defaultUID");
     }
 
     @Override
@@ -92,7 +92,7 @@ public class itempost13 extends AppCompatActivity {
         postItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postItemToFirebase();
+                postItemToServer();
             }
         });
     }
@@ -112,97 +112,86 @@ public class itempost13 extends AppCompatActivity {
             }
             imageView.setImageURI(imageUris.get(0));
             for (Uri uri : imageUris) {
-                uploadToFirebase(uri);
+                uploadToServer(uri);
             }
         }
     }
 
-    private void uploadToFirebase(Uri imageUri) {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference reference = storage.getReference("images").child(System.currentTimeMillis() + ".png");
-        reference.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Task<Uri> task = taskSnapshot.getStorage().getDownloadUrl();
-                        task.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                imageUrls.add(uri.toString());
-                            }
-                        });
+    private void uploadToServer(Uri imageUri) {
+        String url = "http://192.168.18.27/k201688_i190563/upload_image.php";
+
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("UploadImage", "Response: " + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getInt("Status") == 1) {
+                        imageUrls.add(jsonObject.getString("image_url"));
+                    } else {
+                        Toast.makeText(itempost13.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(itempost13.this, e.getMessage().toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(itempost13.this, "Error uploading image: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("image", imageUri.toString());
+                params.put("user_id", getUserUIDFromPreferences());
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(itempost13.this);
+        queue.add(request);
     }
 
-    private void postItemToFirebase() {
-        String name = enterName.getText().toString().trim();
-        String hourlyRate = enterHourlyRate.getText().toString().trim();
-        String description = enterDescription.getText().toString().trim();
-        String match = bestMatch.getText().toString().trim();
+    private void postItemToServer() {
+        String url = "http://192.168.18.27/k201688_i190563/post_item.php";
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String userId = mAuth.getUid();  // Retrieve userId
-
-        if (name.isEmpty() || hourlyRate.isEmpty() || description.isEmpty() || match.isEmpty() || imageUrls.isEmpty() || userId == null) {
-            Toast.makeText(itempost13.this, "Please fill all fields, select at least one image, and ensure you're logged in", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("items");
-        String key = mDatabase.push().getKey();
-
-        if (key == null) {
-            Toast.makeText(itempost13.this, "Database key generation failed", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        ItemModel itemModel = new ItemModel(name, hourlyRate, description, match, imageUrls, userId);
-
-
-
-        mDatabase.child(key).setValue(itemModel)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("PostItem", "Response: " + response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getInt("Status") == 1) {
                         Toast.makeText(itempost13.this, "Item posted successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(itempost13.this, "Failed to post item", Toast.LENGTH_SHORT).show();
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(itempost13.this, "Failed to post item: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(itempost13.this, "Database write failed", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.d("ItemPostDebug", "Database write completed successfully");
-                        }
-                    }
-                })
-                .addOnCanceledListener(new OnCanceledListener() {
-                    @Override
-                    public void onCanceled() {
-                        Toast.makeText(itempost13.this, "Database write was canceled", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(itempost13.this, "Failed to post item: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("name", enterName.getText().toString().trim());
+                params.put("hourlyRate", enterHourlyRate.getText().toString().trim());
+                params.put("description", enterDescription.getText().toString().trim());
+                params.put("match", bestMatch.getText().toString().trim());
+                params.put("user_id", getUserUIDFromPreferences());
+                // Add other parameters as needed
+                return params;
+            }
+        };
 
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        setResult(RESULT_CANCELED);
+        RequestQueue queue = Volley.newRequestQueue(itempost13.this);
+        queue.add(request);
     }
 }

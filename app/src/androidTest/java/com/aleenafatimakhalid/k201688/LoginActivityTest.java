@@ -1,10 +1,9 @@
 package com.aleenafatimakhalid.k201688;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.Before;
@@ -25,13 +24,15 @@ public class LoginActivityTest {
     @Test
     public void testLogin() {
         // Type text in the email field
-        Espresso.onView(withId(R.id.email)).perform(ViewActions.typeText("example1@gmail.com"));
+        Espresso.onView(ViewMatchers.withId(R.id.email)).perform(ViewActions.typeText("example1@gmail.com"));
 
         // Type text in the password field
-        Espresso.onView(withId(R.id.password)).perform(ViewActions.typeText("12345678"));
+        Espresso.onView(ViewMatchers.withId(R.id.password)).perform(ViewActions.typeText("12345678"));
+
+        // Close the soft keyboard (if it is open)
+        Espresso.closeSoftKeyboard();
 
         // Click the login button
-        Espresso.onView(withId(R.id.login)).perform(ViewActions.click());
-
+        Espresso.onView(ViewMatchers.withId(R.id.login)).perform(ViewActions.click());
     }
 }
