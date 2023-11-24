@@ -5,16 +5,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,33 +46,7 @@ public class chat extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ChatItems");
-
-        // Add a ValueEventListener to listen for changes in the data
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                chatItems.clear(); // Clear the existing list
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    ChatItem chatItem = snapshot.getValue(ChatItem.class);
-                    chatItems.add(chatItem);
-                }
-
-                // Notify the adapter that the data has changed
-                adapter.notifyDataSetChanged();
-
-                // Print the number of chat items to check if data is being retrieved
-                Log.d("ChatActivity", "Number of chat items: " + chatItems.size());
-            }
-
-
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.e("ChatActivity", "Error fetching data from Firebase: " + error.getMessage());
-            }
-
-        });
+        retrieveChatItems();
 
         home = findViewById(R.id.home);
         search = findViewById(R.id.search);
@@ -103,6 +83,45 @@ public class chat extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    private void retrieveChatItems() {
+        String url = "http://192.168.18.27/k201688_i190563/retrieve_chat_items.php";
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    // Clear the existing list before adding items
+                    chatItems.clear();
+
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String chatName = jsonObject.getString("chatName");
+                        String lastMessage = jsonObject.getString("lastMessage");
+                        String avatarImageUrl = jsonObject.getString("avatarImageUrl");
+
+                        ChatItem chatItem = new ChatItem(chatName, lastMessage, avatarImageUrl);
+                        chatItems.add(chatItem);
+                    }
+
+                    // Notify the adapter that the data has changed
+                    adapter.notifyDataSetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(chat.this, "Error parsing JSON", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("ChatActivity", "Error fetching data from server: " + error.getMessage());
+                Toast.makeText(chat.this, "Error fetching data from server", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
     }
 }

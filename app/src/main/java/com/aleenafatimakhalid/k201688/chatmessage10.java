@@ -21,22 +21,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -81,6 +86,7 @@ public class chatmessage10 extends AppCompatActivity {
     private boolean isRecording = false;
     private MediaRecorder mediaRecorder;
     private String audioFilePath;
+    private String serverUrl = "http://192.168.18.27/k201688_i190563/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +104,7 @@ public class chatmessage10 extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewChat);
         chatMessages = new ArrayList<>();
+
         adapter = new ChatMessageAdapter(this, chatMessages);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -211,42 +218,8 @@ public class chatmessage10 extends AppCompatActivity {
         });
 
 
-        messagesDatabase = FirebaseDatabase.getInstance().getReference("ChatMessages");
+        retrieveChatMessages();
 
-        messagesDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                chatMessages.clear();
-                for (DataSnapshot chatItemSnapshot : dataSnapshot.getChildren()) {
-                    for (DataSnapshot messageSnapshot : chatItemSnapshot.getChildren()) {
-                        ChatMessageItem message = new ChatMessageItem();
-                        message.setMessage(messageSnapshot.child("message").getValue(String.class));
-                        message.setRecipientId(messageSnapshot.child("recipientId").getValue(String.class));
-                        message.setSenderId(messageSnapshot.child("senderId").getValue(String.class));
-                        message.setTimestamp(messageSnapshot.child("timestamp").getValue(String.class));
-
-                        Integer messageTypeValue = messageSnapshot.child("messageType").getValue(Integer.class);
-
-                        if (messageTypeValue != null) {
-                            message.setMessageType(messageTypeValue);
-                            chatMessages.add(message);
-                        } else {
-                            // Handle the case where messageType is null
-                            // You can choose to ignore this message or handle it differently
-                        }
-                    }
-
-                    sortChatMessagesByTimestamp();
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle errors here
-                Toast.makeText(chatmessage10.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         TextView textSend = findViewById(R.id.textSend);
         textSend.setOnClickListener(new View.OnClickListener() {
@@ -256,24 +229,21 @@ public class chatmessage10 extends AppCompatActivity {
                 String messageText = messageEditText.getText().toString();
 
                 if (!messageText.isEmpty()) {
-                    ChatMessageItem newMessage = new ChatMessageItem();
-                    newMessage.setMessage(messageText);
-                    newMessage.setMessageType(ChatMessageItem.TYPE_SENT);
-                    newMessage.setRecipientId("recipientId1");
-                    newMessage.setSenderId("senderId1");
-
+                    // Get other required information
+                    String senderId = "senderId1"; // Replace with the actual sender ID
+                    String recipientId = "recipientId1"; // Replace with the actual recipient ID
                     String timestamp = getCurrentTimestamp();
-                    newMessage.setTimestamp(timestamp);
+                    int messageType = ChatMessageItem.TYPE_SENT;
 
-                    DatabaseReference chatItemRef = messagesDatabase.child("ChatItem1");
-                    chatItemRef.push().setValue(newMessage);
+                    // Use AsyncTask or another background process to send the message to the server
+                    new SendMessageTask().execute(messageText, senderId, recipientId, timestamp, String.valueOf(messageType));
 
+                    // Clear the messageEditText
                     messageEditText.setText("");
                 }
             }
-
-
         });
+
     }
 
     private String getCurrentTimestamp() {
@@ -542,6 +512,56 @@ public class chatmessage10 extends AppCompatActivity {
         if (isRecording) {
             stopRecording();
         }
+    }
+
+    private void retrieveChatMessages() {
+        // Use Volley or other networking library to make a GET request to the PHP script on your server
+        String url = serverUrl + "retrieve_chat_messages.php";
+        // Add parameters if needed
+        // ...
+
+        // Example using Volley
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    // Parse the JSON response and update the chatMessages list
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                        // Parse data from JSON and create ChatMessageItem objects
+                        String message = jsonObject.getString("message");
+                        String senderId = jsonObject.getString("senderId");
+                        String recipientId = jsonObject.getString("recipientId");
+                        String timestamp = jsonObject.getString("timestamp");
+                        int messageType = jsonObject.getInt("messageType");
+
+                        ChatMessageItem chatMessage = new ChatMessageItem(senderId, recipientId, message, timestamp, messageType, "");
+
+                        // Add the chat message to the list
+                        chatMessages.add(chatMessage);
+                    }
+
+                    // Sort and update the RecyclerView
+                    sortChatMessagesByTimestamp();
+                    adapter.notifyDataSetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(chatmessage10.this, "Error parsing JSON", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("ChatActivity", "Error fetching data from server: " + error.getMessage());
+                Toast.makeText(chatmessage10.this, "Error fetching data from server", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
     }
 
 
